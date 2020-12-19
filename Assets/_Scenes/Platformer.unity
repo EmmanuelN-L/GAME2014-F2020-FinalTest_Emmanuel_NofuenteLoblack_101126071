@@ -3214,7 +3214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265498346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 52.82, y: -0.69, z: 0}
+  m_LocalPosition: {x: -6.3, y: -0.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -20145,7 +20145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1097523514}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -137.3, y: -12.97, z: 17.182358}
+  m_LocalPosition: {x: -134.48, y: -13, z: 17.182358}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 269258437}
@@ -20166,14 +20166,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1097523514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f73b7775e6b705468d1d628dd9d6848, type: 3}
+  m_Script: {fileID: 11500000, guid: 70a99e34ff275724d9c7d231a446f253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: {fileID: 543766972}
-  end: {fileID: 574790883}
   isActive: 0
   platformTimer: 0
-  threshold: 0.1
+  threshold: 0
   player: {fileID: 0}
 --- !u!61 &1097523517
 BoxCollider2D:

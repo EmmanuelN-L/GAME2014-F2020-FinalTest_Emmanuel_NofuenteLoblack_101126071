@@ -15,6 +15,7 @@ public class ShrinkingPlatformController : MonoBehaviour
 
     bool isFloating = false;
     bool isShrinking = false;
+    bool hasShrunk = false;
 
     private Vector3 distance;
 
@@ -40,20 +41,19 @@ public class ShrinkingPlatformController : MonoBehaviour
             StartCoroutine(floaty(2.0f, transform.position, transform.position.y + 2.0f));
         }
 
-        if (isShrinking == false)
-        {       
+        //if (isShrinking == false)
+        //{       
             if (isActive)
-            {
-            //platformTimer += Time.deltaTime;
-            StartCoroutine(Shrinker(10.0f, true, transform.localScale, transform.localScale.x));
+            {                
+                StartCoroutine(Shrinker(2.0f, 1.0f, 0.0f));
+                hasShrunk = true;
             }
-            else
-            {
-            StartCoroutine(Shrinker(10.0f, false, transform.localScale, transform.localScale.x));
-            }
-        }
-        
-        
+            //else if(isActive = false && hasShrunk)
+            //{
+            //    hasShrunk = false; 
+            //    StartCoroutine(Shrinker(2.0f, 0.0f, 1.0f));                
+            //}
+        //}  
     }
 
     void floating()
@@ -107,7 +107,7 @@ public class ShrinkingPlatformController : MonoBehaviour
     {
         if (!isShrinking)
         {
-            isShrinking = true;
+           // isShrinking = true;
             var time = 0.0f;
 
             while (time < 1.0f)
@@ -116,7 +116,14 @@ public class ShrinkingPlatformController : MonoBehaviour
                 time = time + (Time.deltaTime / duration);
                 yield return null;
             }
-            isShrinking = false;
+            time = 0.0f;
+            while (time < 1.0f)
+            {
+                transform.localScale = Vector3.Lerp(new Vector3(endScaleX, 1, 1), new Vector3(startScaleX, 1, 1), time);
+                time = time + (Time.deltaTime / duration);
+                yield return null;
+            }
+            //isShrinking = false;
             yield return null;
         }
     }
