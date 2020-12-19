@@ -286,7 +286,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Shrinking Platform"))
         {
             other.gameObject.GetComponent<ShrinkingPlatformController>().isActive = true;
-            transform.SetParent(other.gameObject.transform);
+            //transform.SetParent(other.gameObject.transform);
         }
     }
 
@@ -301,7 +301,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Shrinking Platform"))
         {
             other.gameObject.GetComponent<ShrinkingPlatformController>().isActive = false;
-            transform.SetParent(parent);
+            //transform.SetParent(parent);
         }
     }
 
