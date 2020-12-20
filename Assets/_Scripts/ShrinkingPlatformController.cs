@@ -8,7 +8,6 @@ public class ShrinkingPlatformController : MonoBehaviour
     public bool isActive;
     public float platformTimer;
     public float threshold;
-    Transform goTransform;
     public PlayerBehaviour player;
     public AudioClip ShrinkingSfx;  //Shrinking sfx
     public AudioClip UnshrinkingSfx;    //Unshrinking sfx
@@ -38,7 +37,6 @@ public class ShrinkingPlatformController : MonoBehaviour
         }
         if (isActive)
         {   
-            
             //When the player is touching the latform it will start the coroutine that shrinks the platform to make the player fall off
             StartCoroutine(Shrinker(2.0f, 1.0f, 0.0f));
             isShrinking = false;
