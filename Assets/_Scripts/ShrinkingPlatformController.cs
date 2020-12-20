@@ -5,19 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class ShrinkingPlatformController : MonoBehaviour
 {
-    //public Transform start;
-    //public Transform end;
     public bool isActive;
     public float platformTimer;
     public float threshold;
     Transform goTransform;
     public PlayerBehaviour player;
-    public AudioClip ShrinkingSfx;
-    public AudioClip UnshrinkingSfx;
-    public AudioSource sfx;
-    bool isFloating = false;
-    bool isShrinking = false;
-    bool hasShrunk = false;
+    public AudioClip ShrinkingSfx;  //Shrinking sfx
+    public AudioClip UnshrinkingSfx;    //Unshrinking sfx
+    public AudioSource sfx; //To play audio sfx
+    bool isFloating = false;    //Bool to check if the platform is floating
+    bool isShrinking = false;   //Bool to check if the platform is already shrinking
 
     private Vector3 distance;
 
@@ -29,26 +26,24 @@ public class ShrinkingPlatformController : MonoBehaviour
         platformTimer = 0.1f;
         platformTimer = 0;
         isActive = false;
+        //Starting the floating effect after this it is in a continuous loop
+       
     }
 
     void Update()
     {
-        if (isFloating == false)
+        if (!isFloating)
         {
-            sfx.clip = ShrinkingSfx;
-            sfx.Play();
-            StartCoroutine(floaty(2.0f, transform.position, transform.position.y + 2.0f));
-            //sfx.Stop();
-        }   
-            if (isActive)
-            {
-
-                sfx.clip = UnshrinkingSfx;
-                sfx.Play();
-                StartCoroutine(Shrinker(2.0f, 1.0f, 0.0f));
-                //sfx.Stop();
-                hasShrunk = true;
-            }
+            StartCoroutine(floaty(2.0f, transform.position, transform.position.y + 1.25f));
+        }
+        if (isActive)
+        {   
+            
+            //When the player is touching the latform it will start the coroutine that shrinks the platform to make the player fall off
+            StartCoroutine(Shrinker(2.0f, 1.0f, 0.0f));
+            isShrinking = false;
+            
+        }
     }
 
     void floating()
@@ -81,11 +76,13 @@ public class ShrinkingPlatformController : MonoBehaviour
 
             while (time < 1.0f)
             {
+                //Lerps the position so that the animation isn't instant it gradually moves
                 transform.position = Vector3.Lerp(startPos, new Vector3(transform.position.x, endY, 0), time); //Mathf.Lerp(startPos, endPos, time);
                 time = time + (Time.deltaTime / duration);
                 yield return null;
             }
             time = 0.0f;
+
             while (time < 1.0f)
             {
                 transform.position = Vector3.Lerp(new Vector3 (startPos.x, endY, startPos.z), new Vector3(transform.position.x, startPos.y, 0), time); //Mathf.Lerp(startPos, endPos, time);
@@ -94,31 +91,39 @@ public class ShrinkingPlatformController : MonoBehaviour
             }
             isFloating = false;
             Debug.Log("I'm working");
-        }  
-        
+        }         
     }
 
-    IEnumerator Shrinker(float duration, float startScaleX, float endScaleX)
+    IEnumerator Shrinker(float period, float startScaleX, float endScaleX)
     {
         if (!isShrinking)
         {
+            isShrinking = true;
             var time = 0.0f;
-
+            //Assigning the correct sound effect
+            sfx.clip = ShrinkingSfx; 
+            //Playing the sound effect clip 
+            sfx.Play();
             while (time < 1.0f)
             {
+                //Lerping the x scale of the platform so that it appears to be shrinking
                 transform.localScale = Vector3.Lerp(new Vector3(startScaleX, 1, 1), new Vector3(endScaleX, 1, 1), time);
-                time = time + (Time.deltaTime / duration);
+                time = time + (Time.deltaTime / period);
                 yield return null;
             }
+            sfx.clip = UnshrinkingSfx;
+            Debug.Log("playing sound");
+            sfx.Play();
             time = 0.0f;
             while (time < 1.0f)
             {
                 transform.localScale = Vector3.Lerp(new Vector3(endScaleX, 1, 1), new Vector3(startScaleX, 1, 1), time);
-                time = time + (Time.deltaTime / duration);
+                time = time + (Time.deltaTime / period);
                 yield return null;
             }
-            //isShrinking = false;
+            sfx.Stop();
             yield return null;
+            
         }
     }
 }

@@ -20174,8 +20174,8 @@ MonoBehaviour:
   platformTimer: 0
   threshold: 0
   player: {fileID: 0}
-  ShrinkingSfx: {fileID: 8300000, guid: f5e55a09957480e48908e7fd5ca1cbea, type: 3}
-  UnshrinkingSfx: {fileID: 8300000, guid: 2dfa70ac1ec530e43b1d9e8172ff2c42, type: 3}
+  ShrinkingSfx: {fileID: 8300000, guid: 12b0ea6b8149b5b4fb99da8be681147d, type: 3}
+  UnshrinkingSfx: {fileID: 8300000, guid: 484f0833647db1b4d81b308358da3052, type: 3}
   sfx: {fileID: 1097523518}
 --- !u!61 &1097523517
 BoxCollider2D:
