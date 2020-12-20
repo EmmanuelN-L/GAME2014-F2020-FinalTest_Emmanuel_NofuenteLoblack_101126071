@@ -12,7 +12,9 @@ public class ShrinkingPlatformController : MonoBehaviour
     public float threshold;
     Transform goTransform;
     public PlayerBehaviour player;
-
+    public AudioClip ShrinkingSfx;
+    public AudioClip UnshrinkingSfx;
+    public AudioSource sfx;
     bool isFloating = false;
     bool isShrinking = false;
     bool hasShrunk = false;
@@ -27,33 +29,26 @@ public class ShrinkingPlatformController : MonoBehaviour
         platformTimer = 0.1f;
         platformTimer = 0;
         isActive = false;
-        //goTransform = transform;
-        //InvokeRepeating("floating", 1.0f, 5.0f);
-        //distance = end.position - start.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isFloating == false)
         {
-            //isFloating = true;
+            sfx.clip = ShrinkingSfx;
+            sfx.Play();
             StartCoroutine(floaty(2.0f, transform.position, transform.position.y + 2.0f));
-        }
-
-        //if (isShrinking == false)
-        //{       
+            //sfx.Stop();
+        }   
             if (isActive)
-            {                
+            {
+
+                sfx.clip = UnshrinkingSfx;
+                sfx.Play();
                 StartCoroutine(Shrinker(2.0f, 1.0f, 0.0f));
+                //sfx.Stop();
                 hasShrunk = true;
             }
-            //else if(isActive = false && hasShrunk)
-            //{
-            //    hasShrunk = false; 
-            //    StartCoroutine(Shrinker(2.0f, 0.0f, 1.0f));                
-            //}
-        //}  
     }
 
     void floating()
@@ -107,7 +102,6 @@ public class ShrinkingPlatformController : MonoBehaviour
     {
         if (!isShrinking)
         {
-           // isShrinking = true;
             var time = 0.0f;
 
             while (time < 1.0f)
